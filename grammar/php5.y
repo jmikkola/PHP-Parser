@@ -580,7 +580,7 @@ expr:
     | expr T_INSTANCEOF class_name_reference                { $$ = Expr\Instanceof_[$1, $3]; }
     | parentheses_expr                                      { $$ = $1; }
     /* we need a separate '(' new_expr ')' rule to avoid problems caused by a s/r conflict */
-    | '(' new_expr ')'                                      { $$ = $2; }
+    | '(' new_expr ')'                                      { $$ = Expr\Paren[$2]; }
     | expr '?' expr ':' expr                                { $$ = Expr\Ternary[$1, $3,   $5]; }
     | expr '?' ':' expr                                     { $$ = Expr\Ternary[$1, null, $4]; }
     | expr T_COALESCE expr                                  { $$ = Expr\BinaryOp\Coalesce[$1, $3]; }
@@ -619,8 +619,8 @@ expr:
 ;
 
 parentheses_expr:
-      '(' expr ')'                                          { $$ = $2; }
-    | '(' yield_expr ')'                                    { $$ = $2; }
+      '(' expr ')'                                          { $$ = Expr\Paren[$2]; }
+    | '(' yield_expr ')'                                    { $$ = Expr\Paren[$2]; }
 ;
 
 yield_expr:
