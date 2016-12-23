@@ -8,16 +8,20 @@ class DNumber extends Scalar
 {
     /** @var float Number value */
     public $value;
+    /** @var string Original format */
+    public $original;
 
     /**
      * Constructs a float number scalar node.
      *
      * @param float $value      Value of the number
+     * @param string $original  Original string
      * @param array $attributes Additional attributes
      */
-    public function __construct($value, array $attributes = array()) {
+    public function __construct($value, $original, array $attributes = array()) {
         parent::__construct($attributes);
         $this->value = $value;
+        $this->original = $original;
     }
 
     public function getSubNodeNames() {

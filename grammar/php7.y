@@ -720,7 +720,8 @@ dereferencable_scalar:
 
 scalar:
       T_LNUMBER                                             { $$ = $this->parseLNumber($1, attributes()); }
-    | T_DNUMBER                                             { $$ = Scalar\DNumber[Scalar\DNumber::parse($1)]; }
+    | T_DNUMBER
+          { $$ = Scalar\DNumber[Scalar\DNumber::parse($1), $1]; }
     | T_LINE                                                { $$ = Scalar\MagicConst\Line[]; }
     | T_FILE                                                { $$ = Scalar\MagicConst\File[]; }
     | T_DIR                                                 { $$ = Scalar\MagicConst\Dir[]; }
