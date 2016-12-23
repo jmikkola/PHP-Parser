@@ -806,8 +806,8 @@ member_name:
 ;
 
 property_name:
-      T_STRING                                              { $$ = $1; }
-    | '{' expr '}'	                                        { $$ = $2; }
+      T_STRING                                              { $$ = Name[$1]; }
+    | '{' expr '}'	                                        { $$ = Expr\BraceExpr[$2]; }
     | simple_variable	                                    { $$ = Expr\Variable[$1]; }
     | error                                                 { $$ = Expr\Error[]; $this->errorState = 2; }
 ;
@@ -866,11 +866,13 @@ encaps_var:
       encaps_base_var                                       { $$ = $1; }
     | encaps_base_var '[' encaps_var_offset ']'             { $$ = Expr\ArrayDimFetch[$1, $3]; }
     | encaps_base_var T_OBJECT_OPERATOR T_STRING            { $$ = Expr\PropertyFetch[$1, $3]; }
-    | T_DOLLAR_OPEN_CURLY_BRACES expr '}'                   { $$ = Expr\Variable[$2]; }
-    | T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '}'       { $$ = Expr\Variable[$2]; }
+    | T_DOLLAR_OPEN_CURLY_BRACES expr '}'
+          { $$ = Expr\BraceExpr[Expr\Variable[$2]]; }
+    | T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '}'
+          { $$ = Expr\BraceExpr[Expr\Variable[$2]]; }
     | T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '[' expr ']' '}'
-          { $$ = Expr\ArrayDimFetch[Expr\Variable[$2], $4]; }
-    | T_CURLY_OPEN variable '}'                             { $$ = $2; }
+          { $$ = Expr\BraceExpr[Expr\ArrayDimFetch[Expr\Variable[$2], $4]]; }
+    | T_CURLY_OPEN variable '}'                             { $$ = Expr\BraceExpr[$2]; }
 ;
 
 encaps_var_offset:
