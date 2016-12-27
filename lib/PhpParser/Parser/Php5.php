@@ -2443,7 +2443,7 @@ class Php5 extends \PhpParser\ParserAbstract
 
     protected function reduceRule380() {
          $attrs = $this->startAttributeStack[$this->stackPos-(4-1)] + $this->endAttributes; $attrs['kind'] = ($this->semStack[$this->stackPos-(4-1)][0] === "'" || ($this->semStack[$this->stackPos-(4-1)][1] === "'" && ($this->semStack[$this->stackPos-(4-1)][0] === 'b' || $this->semStack[$this->stackPos-(4-1)][0] === 'B')) ? Scalar\String_::KIND_SINGLE_QUOTED : Scalar\String_::KIND_DOUBLE_QUOTED);
-            $this->semValue = new Expr\ArrayDimFetch(new Scalar\String_(Scalar\String_::parse($this->semStack[$this->stackPos-(4-1)]), $attrs), $this->semStack[$this->stackPos-(4-3)], $this->startAttributeStack[$this->stackPos-(4-1)] + $this->endAttributes);
+            $this->semValue = new Expr\ArrayDimFetch(new Scalar\String_(Scalar\String_::parse($this->semStack[$this->stackPos-(4-1)]), $this->semStack[$this->stackPos-(4-1)], $attrs), $this->semStack[$this->stackPos-(4-3)], $this->startAttributeStack[$this->stackPos-(4-1)] + $this->endAttributes);
     }
 
     protected function reduceRule381() {
@@ -2627,7 +2627,7 @@ class Php5 extends \PhpParser\ParserAbstract
 
     protected function reduceRule422() {
          $attrs = $this->startAttributeStack[$this->stackPos-(1-1)] + $this->endAttributes; $attrs['kind'] = ($this->semStack[$this->stackPos-(1-1)][0] === "'" || ($this->semStack[$this->stackPos-(1-1)][1] === "'" && ($this->semStack[$this->stackPos-(1-1)][0] === 'b' || $this->semStack[$this->stackPos-(1-1)][0] === 'B')) ? Scalar\String_::KIND_SINGLE_QUOTED : Scalar\String_::KIND_DOUBLE_QUOTED);
-            $this->semValue = new Scalar\String_(Scalar\String_::parse($this->semStack[$this->stackPos-(1-1)], false), $attrs);
+            $this->semValue = new Scalar\String_(Scalar\String_::parse($this->semStack[$this->stackPos-(1-1)], false), $this->semStack[$this->stackPos-(1-1)], $attrs);
     }
 
     protected function reduceRule423() {
@@ -2664,12 +2664,12 @@ class Php5 extends \PhpParser\ParserAbstract
 
     protected function reduceRule431() {
          $attrs = $this->startAttributeStack[$this->stackPos-(3-1)] + $this->endAttributes; $attrs['kind'] = strpos($this->semStack[$this->stackPos-(3-1)], "'") === false ? Scalar\String_::KIND_HEREDOC : Scalar\String_::KIND_NOWDOC; preg_match('/\A[bB]?<<<[ \t]*[\'"]?([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)[\'"]?(?:\r\n|\n|\r)\z/', $this->semStack[$this->stackPos-(3-1)], $matches); $attrs['docLabel'] = $matches[1];;
-            $this->semValue = new Scalar\String_(Scalar\String_::parseDocString($this->semStack[$this->stackPos-(3-1)], $this->semStack[$this->stackPos-(3-2)], false), $attrs);
+            $this->semValue = new Scalar\String_(Scalar\String_::parseDocString($this->semStack[$this->stackPos-(3-1)], $this->semStack[$this->stackPos-(3-2)], false), $this->semStack[$this->stackPos-(3-2)], $attrs);
     }
 
     protected function reduceRule432() {
          $attrs = $this->startAttributeStack[$this->stackPos-(2-1)] + $this->endAttributes; $attrs['kind'] = strpos($this->semStack[$this->stackPos-(2-1)], "'") === false ? Scalar\String_::KIND_HEREDOC : Scalar\String_::KIND_NOWDOC; preg_match('/\A[bB]?<<<[ \t]*[\'"]?([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)[\'"]?(?:\r\n|\n|\r)\z/', $this->semStack[$this->stackPos-(2-1)], $matches); $attrs['docLabel'] = $matches[1];;
-            $this->semValue = new Scalar\String_('', $attrs);
+            $this->semValue = new Scalar\String_('', '', $attrs);
     }
 
     protected function reduceRule433() {
@@ -3127,7 +3127,7 @@ class Php5 extends \PhpParser\ParserAbstract
     }
 
     protected function reduceRule546() {
-         $this->semValue = new Scalar\String_($this->semStack[$this->stackPos-(1-1)], $this->startAttributeStack[$this->stackPos-(1-1)] + $this->endAttributes);
+         $this->semValue = new Scalar\String_($this->semStack[$this->stackPos-(1-1)], $this->semStack[$this->stackPos-(1-1)], $this->startAttributeStack[$this->stackPos-(1-1)] + $this->endAttributes);
     }
 
     protected function reduceRule547() {

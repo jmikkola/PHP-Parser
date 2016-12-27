@@ -2427,7 +2427,7 @@ class Php7 extends \PhpParser\ParserAbstract
 
     protected function reduceRule404() {
          $attrs = $this->startAttributeStack[$this->stackPos-(1-1)] + $this->endAttributes; $attrs['kind'] = ($this->semStack[$this->stackPos-(1-1)][0] === "'" || ($this->semStack[$this->stackPos-(1-1)][1] === "'" && ($this->semStack[$this->stackPos-(1-1)][0] === 'b' || $this->semStack[$this->stackPos-(1-1)][0] === 'B')) ? Scalar\String_::KIND_SINGLE_QUOTED : Scalar\String_::KIND_DOUBLE_QUOTED);
-            $this->semValue = new Scalar\String_(Scalar\String_::parse($this->semStack[$this->stackPos-(1-1)]), $attrs);
+            $this->semValue = new Scalar\String_(Scalar\String_::parse($this->semStack[$this->stackPos-(1-1)]), $this->semStack[$this->stackPos-(1-1)], $attrs);
     }
 
     protected function reduceRule405() {
@@ -2480,12 +2480,12 @@ class Php7 extends \PhpParser\ParserAbstract
 
     protected function reduceRule417() {
          $attrs = $this->startAttributeStack[$this->stackPos-(3-1)] + $this->endAttributes; $attrs['kind'] = strpos($this->semStack[$this->stackPos-(3-1)], "'") === false ? Scalar\String_::KIND_HEREDOC : Scalar\String_::KIND_NOWDOC; preg_match('/\A[bB]?<<<[ \t]*[\'"]?([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)[\'"]?(?:\r\n|\n|\r)\z/', $this->semStack[$this->stackPos-(3-1)], $matches); $attrs['docLabel'] = $matches[1];;
-            $this->semValue = new Scalar\String_(Scalar\String_::parseDocString($this->semStack[$this->stackPos-(3-1)], $this->semStack[$this->stackPos-(3-2)]), $attrs);
+            $this->semValue = new Scalar\String_(Scalar\String_::parseDocString($this->semStack[$this->stackPos-(3-1)], $this->semStack[$this->stackPos-(3-2)]), $this->semStack[$this->stackPos-(3-2)], $attrs);
     }
 
     protected function reduceRule418() {
          $attrs = $this->startAttributeStack[$this->stackPos-(2-1)] + $this->endAttributes; $attrs['kind'] = strpos($this->semStack[$this->stackPos-(2-1)], "'") === false ? Scalar\String_::KIND_HEREDOC : Scalar\String_::KIND_NOWDOC; preg_match('/\A[bB]?<<<[ \t]*[\'"]?([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)[\'"]?(?:\r\n|\n|\r)\z/', $this->semStack[$this->stackPos-(2-1)], $matches); $attrs['docLabel'] = $matches[1];;
-            $this->semValue = new Scalar\String_('', $attrs);
+            $this->semValue = new Scalar\String_('', '', $attrs);
     }
 
     protected function reduceRule419() {
@@ -2755,7 +2755,7 @@ class Php7 extends \PhpParser\ParserAbstract
     }
 
     protected function reduceRule485() {
-         $this->semValue = new Scalar\String_($this->semStack[$this->stackPos-(1-1)], $this->startAttributeStack[$this->stackPos-(1-1)] + $this->endAttributes);
+         $this->semValue = new Scalar\String_($this->semStack[$this->stackPos-(1-1)], $this->semStack[$this->stackPos-(1-1)], $this->startAttributeStack[$this->stackPos-(1-1)] + $this->endAttributes);
     }
 
     protected function reduceRule486() {

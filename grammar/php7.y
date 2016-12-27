@@ -715,7 +715,7 @@ dereferencable_scalar:
     | array_short_syntax                                    { $$ = $1; }
     | T_CONSTANT_ENCAPSED_STRING
           { $attrs = attributes(); $attrs['kind'] = strKind($1);
-            $$ = new Scalar\String_(Scalar\String_::parse($1), $attrs); }
+            $$ = new Scalar\String_(Scalar\String_::parse($1), $1, $attrs); }
 ;
 
 scalar:
@@ -734,10 +734,10 @@ scalar:
     | constant                                              { $$ = $1; }
     | T_START_HEREDOC T_ENCAPSED_AND_WHITESPACE T_END_HEREDOC
           { $attrs = attributes(); setDocStringAttrs($attrs, $1);
-            $$ = new Scalar\String_(Scalar\String_::parseDocString($1, $2), $attrs); }
+            $$ = new Scalar\String_(Scalar\String_::parseDocString($1, $2), $2, $attrs); }
     | T_START_HEREDOC T_END_HEREDOC
           { $attrs = attributes(); setDocStringAttrs($attrs, $1);
-            $$ = new Scalar\String_('', $attrs); }
+            $$ = new Scalar\String_('', '', $attrs); }
     | '"' encaps_list '"'
           { $attrs = attributes(); $attrs['kind'] = Scalar\String_::KIND_DOUBLE_QUOTED;
             parseEncapsed($2, '"', true); $$ = new Scalar\Encapsed($2, $attrs); }
@@ -877,7 +877,7 @@ encaps_var:
 ;
 
 encaps_var_offset:
-      T_STRING                                              { $$ = Scalar\String_[$1]; }
+      T_STRING                                              { $$ = Scalar\String_[$1, $1]; }
     | T_NUM_STRING                                          { $$ = $this->parseNumString($1, attributes()); }
     | '-' T_NUM_STRING                                      { $$ = $this->parseNumString('-' . $2, attributes()); }
     | T_VARIABLE                                            { $$ = Expr\Variable[parseVar($1)]; }
