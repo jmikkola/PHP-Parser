@@ -753,7 +753,7 @@ optional_expr:
 
 dereferencable:
       variable                                              { $$ = $1; }
-    | '(' expr ')'                                          { $$ = $2; }
+    | '(' expr ')'                                          { $$ = Expr\Paren[$2]; }
     | dereferencable_scalar                                 { $$ = $1; }
 ;
 

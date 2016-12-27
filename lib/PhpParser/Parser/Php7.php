@@ -2511,7 +2511,7 @@ class Php7 extends \PhpParser\ParserAbstract
     }
 
     protected function reduceRule424() {
-         $this->semValue = $this->semStack[$this->stackPos-(3-2)];
+         $this->semValue = new Expr\Paren($this->semStack[$this->stackPos-(3-2)], $this->startAttributeStack[$this->stackPos-(3-1)] + $this->endAttributes);
     }
 
     protected function reduceRule425() {
