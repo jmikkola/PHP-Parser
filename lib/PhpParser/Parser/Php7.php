@@ -2384,7 +2384,7 @@ class Php7 extends \PhpParser\ParserAbstract
     }
 
     protected function reduceRule394() {
-         $this->semValue = array(new Scalar\EncapsedStringPart(Scalar\String_::parseEscapeSequences($this->semStack[$this->stackPos-(1-1)], '`'), $this->startAttributeStack[$this->stackPos-(1-1)] + $this->endAttributes));
+         $this->semValue = array(new Scalar\EncapsedStringPart(Scalar\String_::parseEscapeSequences($this->semStack[$this->stackPos-(1-1)], '`'), $this->semStack[$this->stackPos-(1-1)], $this->startAttributeStack[$this->stackPos-(1-1)] + $this->endAttributes));
     }
 
     protected function reduceRule395() {
@@ -2719,7 +2719,7 @@ class Php7 extends \PhpParser\ParserAbstract
     }
 
     protected function reduceRule476() {
-         $this->semValue = new Scalar\EncapsedStringPart($this->semStack[$this->stackPos-(1-1)], $this->startAttributeStack[$this->stackPos-(1-1)] + $this->endAttributes);
+         $this->semValue = new Scalar\EncapsedStringPart($this->semStack[$this->stackPos-(1-1)], $this->semStack[$this->stackPos-(1-1)], $this->startAttributeStack[$this->stackPos-(1-1)] + $this->endAttributes);
     }
 
     protected function reduceRule477() {
